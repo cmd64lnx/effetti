@@ -1,0 +1,9 @@
+{
+  "name": "Effetti",
+  "short_name": "Effetti",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#15151a",
+  "theme_color": "#15151a"
+}

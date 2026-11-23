@@ -36,7 +36,7 @@ header{display:flex;justify-content:flex-end;padding:8px 12px 0}
 const N=8,COL=['#e5484d','#f08a24','#f2c94c','#3fb87f','#2fc4c9','#3e8ef7','#9b6cf0','#e86aa8'];
 const AC=window.AudioContext||window.webkitAudioContext;
 const ctx=new AC();
-let bufs=Array(N).fill(null),recs=Array(N).fill(null),playing=Array(N).fill(false),els=[],edit=false;
+let srcs=[],bufs=Array(N).fill(null),recs=Array(N).fill(null),playing=Array(N).fill(false),els=[],edit=false;
 let names=Array.from({length:N},(_,i)=>'Effetto '+(i+1));
 const grid=document.getElementById('grid'),editBtn=document.getElementById('edit');
 
@@ -56,8 +56,10 @@ function play(i){
   unlock();
   const s=ctx.createBufferSource();
   s.buffer=bufs[i];s.connect(ctx.destination);
-  playing[i]=true;
-  s.onended=()=>{playing[i]=false;mark(i)};
+  srcs[i]=s;playing[i]=true;
+  const done=()=>{if(srcs[i]===s){srcs[i]=null;playing[i]=false;mark(i)}};
+  s.onended=done;
+  setTimeout(done,bufs[i].duration*1000+300);
   s.start(0);mark(i);
 }
 async function load(i,file){

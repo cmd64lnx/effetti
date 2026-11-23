@@ -1,4 +1,4 @@
-const CACHE='effetti-v2';
+const CACHE='effetti-v3';
 const FILES=['./','index.html','manifest.webmanifest'];
 self.addEventListener('install',e=>{
   e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)));

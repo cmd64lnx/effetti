@@ -84,7 +84,7 @@ function render(){
       const l=document.createElement('label');
       l.textContent=bufs[i]?'Cambia audio':'Carica audio';
       const f=document.createElement('input');
-      f.type='file';f.accept='audio/*';f.hidden=true;
+      f.type='file';f.hidden=true;
       f.onchange=()=>load(i,f.files[0]);
       l.append(f);d.append(n,l);
     }else{
